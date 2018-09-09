@@ -1,2 +1,1 @@
-
-kubectl version
+echo 'Init build'
