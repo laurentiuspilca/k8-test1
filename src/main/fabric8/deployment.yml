@@ -1,0 +1,46 @@
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        application: helloworld
+    spec:          
+      containers:
+      - args:
+         - /usr/local/s2i/run
+         - "${appargs}"
+        name: helloworld
+        ports:
+          - name: http
+            containerPort: 8080
+            protocol: TCP
+          - name: managementhttp
+            containerPort: 8081
+            protocol: TCP
+        resources:
+            requests:
+              cpu: "0.1"
+              memory: 200Mi
+            limits:
+              cpu: "1.0"
+              memory: 550Mi
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8081
+            scheme: HTTP
+          initialDelaySeconds: 60
+          timeoutSeconds: 5
+          periodSeconds: 20
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8081
+            scheme: HTTP
+          initialDelaySeconds: 20
+          timeoutSeconds: 5
+          periodSeconds: 20
+          successThreshold: 1
+          failureThreshold: 3
