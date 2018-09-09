@@ -72,7 +72,7 @@
 							<name>default/helloworld:1</name>
 							<build>
 								<fromExt>
-									<name>redhat-openjdk-18</name>
+									<name>openjdk</name>
 									<namespace>inventx</namespace>
 									<kind>ImageStreamTag</kind>
 								</fromExt>
